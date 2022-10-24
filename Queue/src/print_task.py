@@ -12,6 +12,7 @@ from .queue import Queue
 
 class Printer:
     def __init__(self, ppm):
+        # ppm: 일분에 몇 페이지 처리 가능한가
         self.page_rate = ppm
         self.current_task = None
         self.time_remaining = 0
@@ -56,12 +57,14 @@ def simulation(num_seconds, pages_per_minute):
     waiting_times = []
 
     for current_second in range(num_seconds):
-
+        # 새로운 태스크가 있으면 큐에 Task 추가
         if new_print_task():
             task = Task(current_second)
             print_queue.enqueue(task)
 
+        # 현재 처리 중인 작업이 없고 뒤에 작업이 남아있을 때
         if (not lab_printer.busy()) and (not print_queue.is_empty()):
+            # 큐에서 작업을 하나 가지고 와서 waiting time 에 현 Task 가 큐에서 대기한 시간을 기록함
             next_task = print_queue.dequeue()
             waiting_times.append(next_task.wait_time(current_second))
             lab_printer.start_next(next_task)

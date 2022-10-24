@@ -48,8 +48,6 @@ class OrderedList:
         else:
             previous.set_next(current.get_next())
 
-        return found
-
     def search(self, target_data):
         current = self.head
         found = False
@@ -64,7 +62,7 @@ class OrderedList:
                     # 이후 뒤를 탐색해도 없을 것이기 때문에 (ordered list) stop 한다
                     stop = True
                 else:
-                    current.get_next()
+                    current = current.get_next()
 
         return found
 
@@ -84,7 +82,7 @@ class OrderedList:
         new_node = Node(new_data)
 
         if previous is None:
-            # current 가 head 인데 head 가 none 일 때
+            # 요소가 하나 밖에 없는 리스트일 때
             new_node.set_next(self.head)
             self.head = new_node
         else:

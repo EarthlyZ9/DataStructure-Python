@@ -61,11 +61,10 @@ class LinkedList:
                 current = current.get_next()
 
         if previous is None:
+            # 제거하고자 하는 노드가 링크드리스트의 head 일
             self.head = current.get_next()
         else:
             previous.set_next(current.get_next())
-
-        return found
 
     def append(self, new_data):
         new_node = Node(new_data)
